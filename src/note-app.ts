@@ -34,31 +34,25 @@ yargs.command({
     },
   },
   handler(argv) {
-    if (typeof argv.title === 'string') {
-      if (typeof argv.user === 'string') {
-        if (typeof argv.body === 'string') {
-          if (typeof argv.color === 'string') {
-            const filename = argv.title.toLowerCase().replace(/[^A-Za-z0-9]+(.)/g, (LowLine, chr) => chr.toUpperCase());
-            const path: string = './users/' + argv.user;
-            const notePath: string = path + '/' + filename + '.json';
-            if (argv.color == 'red' || argv.color == 'green' || argv.color == 'blue' || argv.color == 'yellow' ) {
-              if (fs.existsSync(path)) {
-                if (fs.existsSync(notePath)) {
-                  console.log(chalk.red('Note title taken!'));
-                } else {
-                  fs.appendFileSync(notePath, new Note(argv.user, argv.title, argv.body, argv.color).write());
-                  console.log(chalk.green('New note added!'));
-                }
-              } else {
-                fs.mkdirSync(path);
-                fs.appendFileSync(notePath, new Note(argv.user, argv.title, argv.body, argv.color).write());
-                console.log(chalk.green('New note added!'));
-              }
-            } else {
-              console.log(chalk.red('The color is not valid!'));
-            }
+    if (typeof argv.title === 'string' && typeof argv.user === 'string' && typeof argv.body === 'string' && typeof argv.color === 'string' && typeof argv.color === 'string') {
+      const filename = argv.title.toLowerCase().replace(/[^A-Za-z0-9]+(.)/, (_LowLine, chr) => chr.toUpperCase());
+      const path: string = './users/' + argv.user;
+      const notePath: string = path + '/' + filename + '.json';
+      if (argv.color == 'red' || argv.color == 'green' || argv.color == 'blue' || argv.color == 'yellow' ) {
+        if (fs.existsSync(path)) {
+          if (fs.existsSync(notePath)) {
+            console.log(chalk.red('Note title taken!'));
+          } else {
+            fs.appendFileSync(notePath, new Note(argv.user, argv.title, argv.body, argv.color).write());
+            console.log(chalk.green('New note added!'));
           }
+        } else {
+          fs.mkdirSync(path);
+          fs.appendFileSync(notePath, new Note(argv.user, argv.title, argv.body, argv.color).write());
+          console.log(chalk.green('New note added!'));
         }
+      } else {
+        console.log(chalk.red('The color is not valid!'));
       }
     }
   },
@@ -138,7 +132,7 @@ yargs.command({
     if (typeof argv.user === 'string') {
       if (typeof argv.title === 'string') {
         const path: string = './users/' + argv.user;
-        const title = argv.title.toLowerCase().replace(/[^A-Za-z0-9]+(.)/g, (LowLine, chr) => chr.toUpperCase());
+        const title = argv.title.toLowerCase().replace(/[^A-Za-z0-9]+(.)/, (_LowLine, chr) => chr.toUpperCase());
         const notePath: string = path + '/' + title + '.json';
 
         if (fs.existsSync(notePath)) {
@@ -197,7 +191,7 @@ yargs.command({
     if (typeof argv.user === 'string') {
       if (typeof argv.title === 'string') {
         const path: string = './users/' + argv.user;
-        const title = argv.title.toLowerCase().replace(/[^A-Za-z0-9]+(.)/g, (LowLine, chr) => chr.toUpperCase());
+        const title = argv.title.toLowerCase().replace(/[^A-Za-z0-9]+(.)/, (_LowLine, chr) => chr.toUpperCase());
         const notePath: string = path + '/' + title + '.json';
 
         if (fs.existsSync(notePath)) {
@@ -242,7 +236,7 @@ yargs.command({
       if (typeof argv.title === 'string') {
         if (typeof argv.body === 'string') {
           const path: string = './users/' + argv.user;
-          const title = argv.title.toLowerCase().replace(/[^A-Za-z0-9]+(.)/g, (LowLine, chr) => chr.toUpperCase());
+          const title = argv.title.toLowerCase().replace(/[^A-Za-z0-9]+(.)/, (_LowLine, chr) => chr.toUpperCase());
           const notePath: string = path + '/' + title + '.json';
 
           if (fs.existsSync(notePath)) {
