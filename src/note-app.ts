@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import * as fs from 'fs';
 import * as chalk from 'chalk';
 import * as yargs from 'yargs';
@@ -32,7 +33,7 @@ yargs.command({
       type: 'string',
     },
   },
-  handler(argv: { title: string; user: string; body: string; color: string; }) {
+  handler(argv) {
     if (typeof argv.title === 'string') {
       if (typeof argv.user === 'string') {
         if (typeof argv.body === 'string') {
@@ -77,7 +78,7 @@ yargs.command({
       type: 'string',
     },
   },
-  handler(argv: { user: string; }) {
+  handler(argv) {
     if (typeof argv.user === 'string') {
       const path: string = './users/' + argv.user;
 
@@ -200,7 +201,7 @@ yargs.command({
         const notePath: string = path + '/' + title + '.json';
 
         if (fs.existsSync(notePath)) {
-          fs.rmdirSync(notePath, {
+          fs.rmSync(notePath, {
             recursive: true,
           });
           console.log(chalk.green('Note removed!'));

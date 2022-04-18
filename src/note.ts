@@ -1,7 +1,8 @@
 /**
- * Class Note that helps us to manage the creation of the json file and the management of the data
+ * Class Note that helps us to manage the creation of the json file
+ * and the management of the data
  */
- export class Note {
+export class Note {
   protected user: string;
   protected title: string;
   protected body: string;
@@ -23,7 +24,8 @@
 
   /**
    * Write method that allow us to write a json of our class
-   * @return {string} String in json format that allow us to convert it into a real json
+   * @return {string} String in json format that allow us to
+   * convert it into a real json
    */
   write(): string {
     let json: string = '{\n';
