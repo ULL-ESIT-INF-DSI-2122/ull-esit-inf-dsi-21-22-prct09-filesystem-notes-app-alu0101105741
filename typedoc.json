@@ -1,0 +1,9 @@
+{
+  "entryPoints": [
+    "./src/templateMethod/Reduce.ts",
+    "./src/templateMethod/addReduce.ts",
+    "./src/templateMethod/subReduce.ts",
+    "./src/templateMethod/prodReduce.ts"
+  ],
+  "out": "./docs"
+}
