@@ -10,7 +10,7 @@ import {Note} from './note';
  * @return {string} String that allow us to check if its working on tests
  */
 export function addFunction(argv): string {
-  if (typeof argv.title === 'string' && typeof argv.user === 'string' && typeof argv.body === 'string' && typeof argv.color === 'string' && typeof argv.color === 'string') {
+  if (typeof argv.title === 'string' && typeof argv.user === 'string' && typeof argv.body === 'string' && typeof argv.color === 'string') {
     const filename = argv.title.toLowerCase().replace(/[ ](.)/g, (_LowLine, chr) => chr.toUpperCase());
     const path: string = './users/' + argv.user;
     const notePath: string = path + '/' + filename + '.json';

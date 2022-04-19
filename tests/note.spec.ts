@@ -27,6 +27,9 @@ describe('Test block on notes', () => {
   it('List notes', () => {
     expect(listFunction({user: 'edusegre'})).to.be.equal('Notes listed!');
   });
+  it('List notes', () => {
+    expect(listFunction({user: 'ericfumero'})).to.be.equal('The user dont have any notes in this system');
+  });
   it('Add red note (should fail)', () => {
     expect(addFunction({user: 'edusegre', title: 'Red note', body: 'This is a red note', color: 'red'})).to.be.equal('Note title taken!');
   });
@@ -54,8 +57,11 @@ describe('Test block on notes', () => {
   it('Read black note (should fail)', () => {
     expect(readFunction({user: 'edusegre', title: 'Black note'})).to.be.equal('Note not found');
   });
-  it('Edit red note ', () => {
+  it('Edit red note', () => {
     expect(editFunction({user: 'edusegre', title: 'Red note', body: 'This is a modified red note'})).to.be.equal('Note edited!');
+  });
+  it('Edit black note (should fail)', () => {
+    expect(editFunction({user: 'edusegre', title: 'Red note', body: 'This is a modified red note'})).to.be.equal('Note not found');
   });
   it('Read red note', () => {
     expect(readFunction({user: 'edusegre', title: 'Red note'})).to.be.equal('Note readed!');
