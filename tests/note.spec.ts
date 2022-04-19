@@ -61,7 +61,7 @@ describe('Test block on notes', () => {
     expect(editFunction({user: 'edusegre', title: 'Red note', body: 'This is a modified red note'})).to.be.equal('Note edited!');
   });
   it('Edit black note (should fail)', () => {
-    expect(editFunction({user: 'edusegre', title: 'Red note', body: 'This is a modified red note'})).to.be.equal('Note not found');
+    expect(editFunction({user: 'edusegre', title: 'Black note', body: 'This is a modified black note'})).to.be.equal('Note not found');
   });
   it('Read red note', () => {
     expect(readFunction({user: 'edusegre', title: 'Red note'})).to.be.equal('Note readed!');
