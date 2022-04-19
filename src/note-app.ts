@@ -5,6 +5,183 @@ import * as yargs from 'yargs';
 import {Note} from './note';
 
 /**
+ * Function that allow us to add a note
+ * @param {yargs.ArgumentsCamelCase} argv Argument received to add note
+ * @return {string} String that allow us to check if its working on tests
+ */
+export function addFunction(argv): string {
+  if (typeof argv.title === 'string' && typeof argv.user === 'string' && typeof argv.body === 'string' && typeof argv.color === 'string' && typeof argv.color === 'string') {
+    const filename = argv.title.toLowerCase().replace(/[ ](.)/g, (_LowLine, chr) => chr.toUpperCase());
+    const path: string = './users/' + argv.user;
+    const notePath: string = path + '/' + filename + '.json';
+    if (argv.color == 'red' || argv.color == 'green' || argv.color == 'blue' || argv.color == 'yellow' ) {
+      if (fs.existsSync(path)) {
+        if (fs.existsSync(notePath)) {
+          console.log(chalk.red('Note title taken!'));
+          return 'Note title taken!';
+        } else {
+          fs.appendFileSync(notePath, new Note(argv.user, argv.title, argv.body, argv.color).write());
+          console.log(chalk.green('New note added!'));
+          return 'New note added!';
+        }
+      } else {
+        fs.mkdirSync(path);
+        fs.appendFileSync(notePath, new Note(argv.user, argv.title, argv.body, argv.color).write());
+        console.log(chalk.green('New note added!'));
+        return 'New note added!';
+      }
+    } else {
+      console.log(chalk.red('The color is not valid!'));
+      return 'The color is not valid!';
+    }
+  }
+}
+
+/**
+ * asd
+ * @param {yargs.ArgumentsCamelCase} argv asd
+ * @return {string} asd
+ */
+export function listFunction(argv): string {
+  if (typeof argv.user === 'string') {
+    const path: string = './users/' + argv.user;
+
+    if (fs.existsSync(path)) {
+      console.log('Your notes');
+      const pointer = fs.readdirSync(path);
+      pointer.forEach((filename) => {
+        const notePath: string = path + '/' + filename;
+        const data = JSON.parse(fs.readFileSync(notePath, 'utf8'));
+        const noteColour = data.color;
+        switch (noteColour) {
+          case 'red': {
+            console.log(chalk.red.inverse(data.title));
+            break;
+          }
+          case 'green': {
+            console.log(chalk.green.inverse(data.title));
+            break;
+          }
+          case 'blue': {
+            console.log(chalk.blue.inverse(data.title));
+            break;
+          }
+          case 'yellow': {
+            console.log(chalk.yellow.inverse(data.title));
+            break;
+          }
+        }
+      });
+      return 'Notes listed!';
+    } else {
+      console.log(chalk.red('The user dont have any notes in this system'));
+      return 'The user dont have any notes in this system';
+    // eslint-disable-next-line block-spacing
+    // eslint-disable-next-line brace-style
+    }
+  }
+}
+
+/**
+ * asd
+ * @param {yargs.ArgumentsCamelCase} argv asd
+ * @return {string} asd
+ */
+export function readFunction(argv): string {
+  if (typeof argv.user === 'string') {
+    if (typeof argv.title === 'string') {
+      const path: string = './users/' + argv.user;
+      const title = argv.title.toLowerCase().replace(/[ ](.)/g, (_LowLine, chr) => chr.toUpperCase());
+      const notePath: string = path + '/' + title + '.json';
+
+      if (fs.existsSync(notePath)) {
+        const data = JSON.parse(fs.readFileSync(notePath, 'utf8'));
+        const noteColour = data.color;
+        switch (noteColour) {
+          case 'red': {
+            console.log(chalk.red.inverse(data.title));
+            console.log(chalk.red.inverse(data.body));
+            break;
+          }
+          case 'green': {
+            console.log(chalk.green.inverse(data.title));
+            console.log(chalk.green.inverse(data.body));
+            break;
+          }
+          case 'blue': {
+            console.log(chalk.blue.inverse(data.title));
+            console.log(chalk.blue.inverse(data.body));
+            break;
+          }
+          case 'yellow': {
+            console.log(chalk.yellow.inverse(data.title));
+            console.log(chalk.yellow.inverse(data.body));
+            break;
+          }
+        }
+        return 'Note readed!';
+      } else {
+        console.log(chalk.red('Note not found'));
+        return 'Note not found';
+      }
+    }
+  }
+}
+
+/**
+ * asd
+ * @param {yargs.ArgumentsCamelCase} argv asd
+ * @return {string} asd
+ */
+export function removeFunction(argv): string {
+  if (typeof argv.user === 'string') {
+    if (typeof argv.title === 'string') {
+      const path: string = './users/' + argv.user;
+      const title = argv.title.toLowerCase().replace(/[ ](.)/g, (_LowLine, chr) => chr.toUpperCase());
+      const notePath: string = path + '/' + title + '.json';
+
+      if (fs.existsSync(notePath)) {
+        fs.rmSync(notePath, {
+          recursive: true,
+        });
+        console.log(chalk.green('Note removed!'));
+        return 'Note removed!';
+      } else {
+        console.log(chalk.red('No note found'));
+        return 'No note found';
+      }
+    }
+  }
+}
+
+/**
+ * asd
+ * @param {yargs.ArgumentsCamelCase} argv sad
+ * @return {string} asd
+ */
+export function editFunction(argv): string {
+  if (typeof argv.user === 'string') {
+    if (typeof argv.title === 'string') {
+      if (typeof argv.body === 'string') {
+        const path: string = './users/' + argv.user;
+        const title = argv.title.toLowerCase().replace(/[ ](.)/g, (_LowLine, chr) => chr.toUpperCase());
+        const notePath: string = path + '/' + title + '.json';
+
+        if (fs.existsSync(notePath)) {
+          const data = JSON.parse(fs.readFileSync(notePath, 'utf8'));
+          fs.writeFileSync(notePath, new Note(argv.user, argv.title, argv.body, data.color).write());
+          console.log(chalk.green('Note edited!'));
+          return 'Note edited!';
+        } else {
+          console.log(chalk.red('Note not found'));
+          return 'Note not found';
+        }
+      }
+    }
+  }
+}
+
+/**
  * Add command that allow us to add a note from a user
  * into his directory of notes
  */
@@ -34,27 +211,7 @@ yargs.command({
     },
   },
   handler(argv) {
-    if (typeof argv.title === 'string' && typeof argv.user === 'string' && typeof argv.body === 'string' && typeof argv.color === 'string' && typeof argv.color === 'string') {
-      const filename = argv.title.toLowerCase().replace(/[](.)/g, (_LowLine, chr) => chr.toUpperCase());
-      const path: string = './users/' + argv.user;
-      const notePath: string = path + '/' + filename + '.json';
-      if (argv.color == 'red' || argv.color == 'green' || argv.color == 'blue' || argv.color == 'yellow' ) {
-        if (fs.existsSync(path)) {
-          if (fs.existsSync(notePath)) {
-            console.log(chalk.red('Note title taken!'));
-          } else {
-            fs.appendFileSync(notePath, new Note(argv.user, argv.title, argv.body, argv.color).write());
-            console.log(chalk.green('New note added!'));
-          }
-        } else {
-          fs.mkdirSync(path);
-          fs.appendFileSync(notePath, new Note(argv.user, argv.title, argv.body, argv.color).write());
-          console.log(chalk.green('New note added!'));
-        }
-      } else {
-        console.log(chalk.red('The color is not valid!'));
-      }
-    }
+    addFunction(argv);
   },
 });
 
@@ -73,40 +230,8 @@ yargs.command({
     },
   },
   handler(argv) {
-    if (typeof argv.user === 'string') {
-      const path: string = './users/' + argv.user;
-
-      if (fs.existsSync(path)) {
-        console.log('Your notes');
-        const pointer = fs.readdirSync(path);
-        pointer.forEach((filename) => {
-          const notePath: string = path + '/' + filename;
-          const data = JSON.parse(fs.readFileSync(notePath, 'utf8'));
-          const noteColour = data.color;
-          switch (noteColour) {
-            case 'red': {
-              console.log(chalk.red.inverse(data.title));
-              break;
-            }
-            case 'green': {
-              console.log(chalk.green.inverse(data.title));
-              break;
-            }
-            case 'blue': {
-              console.log(chalk.blue.inverse(data.title));
-              break;
-            }
-            case 'yellow': {
-              console.log(chalk.yellow.inverse(data.title));
-              break;
-            }
-          }
-        });
-      } else {
-        console.log(chalk.red('The user dont have any notes in this system'));
-      // eslint-disable-next-line block-spacing
-      // eslint-disable-next-line brace-style
-      }}}, // Prevent duplicated lines
+    listFunction(argv);
+  }, // Prevent duplicated lines
 });
 
 /**
@@ -129,42 +254,7 @@ yargs.command({
     },
   },
   handler(argv) {
-    if (typeof argv.user === 'string') {
-      if (typeof argv.title === 'string') {
-        const path: string = './users/' + argv.user;
-        const title = argv.title.toLowerCase().replace(/[](.)/g, (_LowLine, chr) => chr.toUpperCase());
-        const notePath: string = path + '/' + title + '.json';
-
-        if (fs.existsSync(notePath)) {
-          const data = JSON.parse(fs.readFileSync(notePath, 'utf8'));
-          const noteColour = data.color;
-          switch (noteColour) {
-            case 'red': {
-              console.log(chalk.red.inverse(data.title));
-              console.log(chalk.red.inverse(data.body));
-              break;
-            }
-            case 'green': {
-              console.log(chalk.green.inverse(data.title));
-              console.log(chalk.green.inverse(data.body));
-              break;
-            }
-            case 'blue': {
-              console.log(chalk.blue.inverse(data.title));
-              console.log(chalk.blue.inverse(data.body));
-              break;
-            }
-            case 'yellow': {
-              console.log(chalk.yellow.inverse(data.title));
-              console.log(chalk.yellow.inverse(data.body));
-              break;
-            }
-          }
-        } else {
-          console.log(chalk.red('Note not found'));
-        }
-      }
-    }
+    readFunction(argv);
   },
 });
 
@@ -188,22 +278,7 @@ yargs.command({
     },
   },
   handler(argv) {
-    if (typeof argv.user === 'string') {
-      if (typeof argv.title === 'string') {
-        const path: string = './users/' + argv.user;
-        const title = argv.title.toLowerCase().replace(/[ ](.)/g, (_LowLine, chr) => chr.toUpperCase());
-        const notePath: string = path + '/' + title + '.json';
-
-        if (fs.existsSync(notePath)) {
-          fs.rmSync(notePath, {
-            recursive: true,
-          });
-          console.log(chalk.green('Note removed!'));
-        } else {
-          console.log(chalk.red('No note found'));
-        }
-      }
-    }
+    removeFunction(argv);
   },
 });
 
@@ -232,23 +307,7 @@ yargs.command({
     },
   },
   handler(argv) {
-    if (typeof argv.user === 'string') {
-      if (typeof argv.title === 'string') {
-        if (typeof argv.body === 'string') {
-          const path: string = './users/' + argv.user;
-          const title = argv.title.toLowerCase().replace(/[ ](.)/g, (_LowLine, chr) => chr.toUpperCase());
-          const notePath: string = path + '/' + title + '.json';
-
-          if (fs.existsSync(notePath)) {
-            const data = JSON.parse(fs.readFileSync(notePath, 'utf8'));
-            fs.writeFileSync(notePath, new Note(argv.user, argv.title, argv.body, data.color).write());
-            console.log(chalk.green('Note edited!'));
-          } else {
-            console.log(chalk.red('Note not found'));
-          }
-        }
-      }
-    }
+    editFunction(argv);
   },
 });
 
