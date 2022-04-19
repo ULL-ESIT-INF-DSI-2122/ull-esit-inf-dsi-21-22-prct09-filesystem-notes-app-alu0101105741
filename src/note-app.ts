@@ -104,9 +104,9 @@ yargs.command({
         });
       } else {
         console.log(chalk.red('The user dont have any notes in this system'));
-      }
-    }
-  },
+      // eslint-disable-next-line block-spacing
+      // eslint-disable-next-line brace-style
+      }}}, // Prevent duplicated lines
 });
 
 /**
