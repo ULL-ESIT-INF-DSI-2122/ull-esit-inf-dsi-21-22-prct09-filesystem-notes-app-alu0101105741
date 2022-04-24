@@ -3,7 +3,9 @@
     "./src/templateMethod/Reduce.ts",
     "./src/templateMethod/addReduce.ts",
     "./src/templateMethod/subReduce.ts",
-    "./src/templateMethod/prodReduce.ts"
+    "./src/templateMethod/prodReduce.ts",
+    "./src/note-app.ts",
+    "./src/note.ts"
   ],
   "out": "./docs"
 }
