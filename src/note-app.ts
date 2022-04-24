@@ -14,7 +14,7 @@ export function addFunction(argv): string {
     const filename = argv.title.toLowerCase().replace(/[ ](.)/g, (_LowLine, chr) => chr.toUpperCase());
     const path: string = './users/' + argv.user;
     const notePath: string = path + '/' + filename + '.json';
-    if (argv.color == 'red' || argv.color == 'green' || argv.color == 'blue' || argv.color == 'yellow' ) {
+    if (argv.color === 'red' || argv.color === 'green' || argv.color === 'blue' || argv.color === 'yellow' ) {
       if (fs.existsSync(path)) {
         if (fs.existsSync(notePath)) {
           console.log(chalk.red('Note title taken!'));
