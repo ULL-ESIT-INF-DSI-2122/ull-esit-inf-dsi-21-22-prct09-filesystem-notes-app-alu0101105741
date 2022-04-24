@@ -6,7 +6,7 @@ import {Note} from './note';
 
 /**
  * Function that allow us to add a note
- * @param {yargs.ArgumentsCamelCase} argv Argument received to add note
+ * @param {yargs.ArgumentsCamelCase} argv Argument received to add a note
  * @return {string} String that allow us to check if its working on tests
  */
 export function addFunction(argv): string {
@@ -38,9 +38,9 @@ export function addFunction(argv): string {
 }
 
 /**
- * asd
- * @param {yargs.ArgumentsCamelCase} argv asd
- * @return {string} asd
+ * Function that allow us to list notes
+ * @param {yargs.ArgumentsCamelCase} argv Argument received to list notes
+ * @return {string} String that allow us to check if its working on tests
  */
 export function listFunction(argv): string {
   if (typeof argv.user === 'string') {
@@ -83,9 +83,9 @@ export function listFunction(argv): string {
 }
 
 /**
- * asd
- * @param {yargs.ArgumentsCamelCase} argv asd
- * @return {string} asd
+ * Function that allow us to read a note
+ * @param {yargs.ArgumentsCamelCase} argv Argument received to read a note
+ * @return {string} String that allow us to check if its working on tests
  */
 export function readFunction(argv): string {
   if (typeof argv.user === 'string') {
@@ -129,9 +129,9 @@ export function readFunction(argv): string {
 }
 
 /**
- * asd
- * @param {yargs.ArgumentsCamelCase} argv asd
- * @return {string} asd
+ * Function that allow us to remove a note
+ * @param {yargs.ArgumentsCamelCase} argv Argument received to remove a note
+ * @return {string} String that allow us to check if its working on tests
  */
 export function removeFunction(argv): string {
   if (typeof argv.user === 'string') {
@@ -155,9 +155,9 @@ export function removeFunction(argv): string {
 }
 
 /**
- * asd
- * @param {yargs.ArgumentsCamelCase} argv sad
- * @return {string} asd
+ * Function that allow us to edit a note
+ * @param {yargs.ArgumentsCamelCase} argv Argument received to edit a note
+ * @return {string} String that allow us to check if its working on tests
  */
 export function editFunction(argv): string {
   if (typeof argv.user === 'string') {
